@@ -1,8 +1,17 @@
-"use client";
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 
-const MyProfile = () => {
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
+
+const MyProfile = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  console.log(user);
+  if (!user) {
+    redirect("/api/auth/login?");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 mt-10">
       <div className="container mx-auto px-4 py-16">
@@ -12,12 +21,20 @@ const MyProfile = () => {
               <div className="relative w-40 h-40 group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white bg-gray-100 flex items-center justify-center">
-                  <FaUserCircle className="w-full h-full text-gray-400" />
+                  <Image
+                    src={user?.picture}
+                    alt="Profile"
+                    width={100}
+                    height={100}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
-              <div className="inline-flex items-center space-x-3">
-                <span className="h-2 w-2 bg-green-500 rounded-full"></span>
-                <span className="text-sm text-gray-600">Online</span>
+              <div className="inline-flex items-center flex-col space-x-3">
+                <div className="flex items-center space-x-2">
+                  <span className="text-lg font-bold text-gray-600">{user?.given_name} {user?.family_name}</span>
+                </div>
+                <span className="text-sm text-gray-600">{user?.email}</span>
               </div>
             </div>
 

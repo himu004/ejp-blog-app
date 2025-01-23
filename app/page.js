@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default async function Home() {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -19,7 +19,9 @@ export default async function Home() {
                 </div>
                 <div className="p-6 h-2/3 relative">
                   <div className="absolute -top-8 left-4 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
-                    <span className="text-2xl font-bold bg-gradient-to-br from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">#{post.id}</span>
+                    <span className="text-2xl font-bold bg-gradient-to-br from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
+                      #{post.id}
+                    </span>
                   </div>
                   <div className="mt-4">
                     <h2 className="text-xl font-bold text-gray-800 line-clamp-2 group-hover:text-violet-600 transition-colors duration-300">
@@ -31,7 +33,9 @@ export default async function Home() {
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="flex items-center justify-between border-t border-gray-100 pt-4">
                         <div className="group-hover:translate-x-2 transition-transform">
-                          <p className="text-sm font-semibold text-gray-700">Author</p>
+                          <p className="text-sm font-semibold text-gray-700">
+                            Author
+                          </p>
                           <p className="text-xs text-gray-500">2 min read</p>
                         </div>
                         <span className="bg-violet-100 text-violet-600 px-4 py-1.5 rounded-full text-xs font-medium group-hover:bg-violet-600 group-hover:text-white transition-colors duration-300">
