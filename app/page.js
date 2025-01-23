@@ -1,101 +1,51 @@
-import Image from "next/image";
+import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-b from-gray-50 to-gray-100">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-violet-600 to-fuchsia-600 text-transparent bg-clip-text">
+          Welcome to EJP Blog App
+        </h1>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {data.map((post) => (
+            <Link key={post.id} href={`/blog/${post.id}`}>
+              <div className="group h-[400px] bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden backdrop-blur-sm border border-gray-100">
+                <div className="h-1/3 bg-gradient-to-br from-violet-500 to-fuchsia-500 group-hover:scale-105 transition-transform duration-300 relative">
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6 h-2/3 relative">
+                  <div className="absolute -top-8 left-4 w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
+                    <span className="text-2xl font-bold bg-gradient-to-br from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">#{post.id}</span>
+                  </div>
+                  <div className="mt-4">
+                    <h2 className="text-xl font-bold text-gray-800 line-clamp-2 group-hover:text-violet-600 transition-colors duration-300">
+                      {post.title}
+                    </h2>
+                    <p className="mt-3 text-gray-600 line-clamp-3 text-sm group-hover:text-gray-700 transition-colors">
+                      {post.body}
+                    </p>
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+                        <div className="group-hover:translate-x-2 transition-transform">
+                          <p className="text-sm font-semibold text-gray-700">Author</p>
+                          <p className="text-xs text-gray-500">2 min read</p>
+                        </div>
+                        <span className="bg-violet-100 text-violet-600 px-4 py-1.5 rounded-full text-xs font-medium group-hover:bg-violet-600 group-hover:text-white transition-colors duration-300">
+                          Read More →
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
